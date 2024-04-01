@@ -3,7 +3,7 @@ import 'package:rss_medium_app/models/rss_item.dart';
 import 'package:rss_medium_app/services/api_service.dart';
 
 class RssFeedScreen extends StatefulWidget {
-  const RssFeedScreen({Key? key}) : super(key: key);
+  const RssFeedScreen({super.key});
 
   @override
   _RssFeedScreenState createState() => _RssFeedScreenState();
@@ -139,7 +139,7 @@ class _RssFeedScreenState extends State<RssFeedScreen> {
                                           child: Text(
                                             item?.pubDate ?? '',
                                             style: const TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 color: Colors.grey),
                                           ),
                                         ),

@@ -30,6 +30,7 @@ class _HistoryListState extends State<HistoryList> {
               width: double.infinity,
               padding: const EdgeInsets.all(30),
               decoration: const BoxDecoration(
+                color: Colors.white24,
                 border:
                     Border(bottom: BorderSide(width: 1, color: Colors.white)),
               ),
@@ -47,8 +48,8 @@ class _HistoryListState extends State<HistoryList> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const CircularProgressIndicator();
                   } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}', style: TextStyle(
-                                               color: Colors.white));
+                    return Text('Error: ${snapshot.error}',
+                        style: TextStyle(color: Colors.white));
                   } else if (snapshot.hasData) {
                     final searchTermList = snapshot.data!;
 
@@ -57,14 +58,15 @@ class _HistoryListState extends State<HistoryList> {
                       itemBuilder: (context, index) {
                         final searchTerm = searchTermList[index];
                         return ListTile(
-                          title: Text(searchTerm, style: TextStyle(
-                              color: Colors.white, fontSize: 18)),
+                          title: Text(searchTerm,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18)),
                         );
                       },
                     );
                   } else {
-                    return const Text('Not available data', style: TextStyle(
-                        color: Colors.white));
+                    return const Text('Not available data',
+                        style: TextStyle(color: Colors.white));
                   }
                 },
               ),
