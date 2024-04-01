@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rss_medium_app/services/api_service.dart';
+import 'package:rss_medium_app/ui/shared/custom_panel_title.dart';
+import 'package:rss_medium_app/ui/shared/custom_text.dart';
 
 class HistoryList extends StatefulWidget {
   const HistoryList({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HistoryListState createState() => _HistoryListState();
 }
 
@@ -26,30 +29,18 @@ class _HistoryListState extends State<HistoryList> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(30),
-              decoration: const BoxDecoration(
-                color: Colors.white24,
-                border:
-                    Border(bottom: BorderSide(width: 1, color: Colors.white)),
-              ),
-              child: const Text('Search History',
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
-            ),
+            const SearchHistoryTitle(text: 'Search History'),
             const SizedBox(height: 35),
             Expanded(
               child: FutureBuilder<List<String>>(
                 future: _searchHistoryFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
+                    return const CircularProgressIndicator(
+                      value: 0.5,
+                    );
                   } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}',
-                        style: TextStyle(color: Colors.white));
+                    return CustomWhiteText(text: 'Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {
                     final searchTermList = snapshot.data!;
 
@@ -58,15 +49,14 @@ class _HistoryListState extends State<HistoryList> {
                       itemBuilder: (context, index) {
                         final searchTerm = searchTermList[index];
                         return ListTile(
-                          title: Text(searchTerm,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18)),
-                        );
+                            title: CustomWhiteText(
+                                text: searchTerm, fontSize: 18));
                       },
                     );
                   } else {
-                    return const Text('Not available data',
-                        style: TextStyle(color: Colors.white));
+                    return const CustomWhiteText(
+                      text: 'Not available data',
+                    );
                   }
                 },
               ),
