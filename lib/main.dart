@@ -38,18 +38,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Center(
           child: Row(
             children: [
               Container(
-                  width: 300,
-                  height: MediaQuery.of(context).size.height,
-                  child: HistoryList(),
+                width: 300,
+                height: MediaQuery.of(context).size.height,
                 color: Colors.black,
+                child: const HistoryList(),
               ),
-              Expanded(child: RssFeedScreen()),
+              const Expanded(child: RssFeedScreen()),
             ],
           ),
         ),
