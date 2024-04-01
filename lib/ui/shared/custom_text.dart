@@ -26,7 +26,10 @@ class CustomText extends StatelessWidget {
         overflow: overflow,
         maxLines: maxLines,
         style: TextStyle(
-            color: color, fontWeight: fontWeight, fontFamily: fontFamily));
+            fontSize: fontSize,
+            color: color,
+            fontWeight: fontWeight,
+            fontFamily: fontFamily));
   }
 }
 

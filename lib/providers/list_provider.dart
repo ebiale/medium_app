@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:rss_medium_app/models/rss_item.dart';
-import 'package:rss_medium_app/models/search_history.dart';
+import 'package:rss_medium_app/services/api_service.dart';
 
 class ListProvider extends ChangeNotifier {
-  List<SearchHistoryItem> historyList = [];
+  List<String> historyList = [];
 
-  RssResponse? response;
+  RssResponse? feeds;
 
-  Future<void> refreshHistoryList(List<SearchHistoryItem> historyList) async {
-    this.historyList = historyList;
+  Future<void> fetchHistoryList() async {
+    try {
+      historyList = await ApiService.getSearchHistory(5);
+      notifyListeners();
+    } catch (error) {
+      historyList = [];
+      print('Errog getting the history list: $error');
+    }
   }
 
-  Future<void> refreshFeed(RssResponse? response) async {
-    this.response = response;
+  Future<void> searchFeed(String mediumSource) async {
+    try {
+      feeds = await ApiService.getMediumFeed(mediumSource);
+      await fetchHistoryList();
+      notifyListeners();
+    } catch (error) {
+      feeds = null;
+      print('Errog getting the rss feed list: $error');
+    }
   }
 }

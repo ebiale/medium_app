@@ -9,6 +9,7 @@ class RssResponse {
 class RssItem {
   final String title;
   final String? description;
+  final String? htmlDescription;
   final String? imageSrc;
   final String? author;
   final String? pubDate;
@@ -19,5 +20,6 @@ class RssItem {
     this.imageSrc,
     this.author,
     this.pubDate,
+    this.htmlDescription,
   });
 }

@@ -28,17 +28,6 @@ class ApiService {
     }
   }
 
-  // Public method to fetch data from Medium
-  static Future<dynamic> fetchMediumData(String mediumSource) async {
-    final endpoint = 'fetchMediumData?mediumSource=$mediumSource';
-    try {
-      final response = await _getRequest(endpoint);
-      return response;
-    } catch (e) {
-      throw Exception('Error fetching Medium data: $e');
-    }
-  }
-
   // Public method to get search history
   static Future<List<String>> getSearchHistory(int maxItems) async {
     final endpoint = 'getSearchHistory?maxItems=$maxItems';
@@ -103,26 +92,28 @@ class ApiService {
       var pubDate = item['pubDate'];
       var author = item['dc:creator'];
       var description = item['description'];
-
-      var document = parse(description);
-
+      var htmlDescription = item['content:encoded'];
       String? imageUrl;
-
-      var imageElement = document.querySelector('.medium-feed-image a img');
-
-      if (imageElement != null) {
-        imageUrl = imageElement.attributes['src'];
-      }
-
       String? itemDescription;
-      var snippetElement = document.querySelector('.medium-feed-snippet');
-      if (snippetElement != null) {
-        itemDescription = snippetElement.text;
+      if (description != null) {
+        var document = parse(description);
+
+        var imageElement = document.querySelector('.medium-feed-image a img');
+
+        if (imageElement != null) {
+          imageUrl = imageElement.attributes['src'];
+        }
+
+        var snippetElement = document.querySelector('.medium-feed-snippet');
+        if (snippetElement != null) {
+          itemDescription = snippetElement.text;
+        }
       }
 
       var rssItem = RssItem(
           title: title,
           description: itemDescription,
+          htmlDescription: htmlDescription,
           pubDate: pubDate,
           author: author,
           imageSrc: imageUrl);

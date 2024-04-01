@@ -13,7 +13,7 @@ class ProviderApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => ListProvider(),
+      create: (_) => ListProvider()..fetchHistoryList(),
       child: const MyApp(),
     );
   }
@@ -24,13 +24,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Rss Medium App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MainLayout(),
+      home: MainLayout(),
     );
   }
 }
